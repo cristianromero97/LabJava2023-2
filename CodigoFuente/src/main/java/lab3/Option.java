@@ -2,6 +2,7 @@ package lab3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Option {
     private int codigo;
@@ -66,6 +67,22 @@ public class Option {
         List<Option> listaActualizada = new ArrayList<>(options);
         listaActualizada.add(nuevaOption);
         return listaActualizada;
+    }
+    // Override equals and hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Option option = (Option) o;
+        return codigo == option.codigo &&
+                chatbotCodeLink == option.chatbotCodeLink &&
+                initialFlowCodeLink == option.initialFlowCodeLink &&
+                Objects.equals(mensaje, option.mensaje) &&
+                Objects.equals(keywords, option.keywords);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo, mensaje, chatbotCodeLink, initialFlowCodeLink, keywords);
     }
 
     public static void main(String[] args) {
