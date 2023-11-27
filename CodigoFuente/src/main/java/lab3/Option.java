@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Option {
+public class Option implements OptionInterface{
+
     private int codigo;
     private String mensaje;
     private int chatbotCodeLink;
@@ -13,10 +14,10 @@ public class Option {
 
     // Constructor
     public Option(int codigo, String mensaje, int chatbotCodeLink, int initialFlowCodeLink, List<String> keywords) {
+        //super(initialFlowCodeLink, mensaje, null);
         this.codigo = codigo;
         this.mensaje = mensaje;
         this.chatbotCodeLink = chatbotCodeLink;
-        this.initialFlowCodeLink = initialFlowCodeLink;
         this.keywords = new ArrayList<>(keywords);
     }
 
@@ -61,8 +62,6 @@ public class Option {
     public void setKeywords(List<String> nuevoKeywords) {
         this.keywords = new ArrayList<>(nuevoKeywords);
     }
-
-    // Method to add a new option to a list of options
     public static List<Option> addOptionToOption(Option nuevaOption, List<Option> options) {
         List<Option> listaActualizada = new ArrayList<>(options);
         listaActualizada.add(nuevaOption);
@@ -84,8 +83,7 @@ public class Option {
     public int hashCode() {
         return Objects.hash(codigo, mensaje, chatbotCodeLink, initialFlowCodeLink, keywords);
     }
-
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // Example usage
         Option option1 = new Option(1, "Hello", 123, 456, List.of("keyword1", "keyword2"));
         Option option2 = new Option(2, "Hi", 789, 101, List.of("keyword3", "keyword4"));
@@ -103,5 +101,15 @@ public class Option {
             System.out.println("Keywords: " + option.getKeywords());
             System.out.println("---------------");
         }
+    }*/
+    @Override
+    public String toString() {
+        return "Option{" +
+                "codigo=" + codigo +
+                ", mensaje='" + mensaje + '\'' +
+                ", chatbotCodeLink=" + chatbotCodeLink +
+                ", initialFlowCodeLink=" + initialFlowCodeLink +
+                ", keywords=" + keywords +
+                '}';
     }
 }
