@@ -100,13 +100,6 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
-    /**
-     * Metodo para modificar el usuario actual logeado del sistema
-     * @param usuarioActual
-     */
-    public void setUsuarioActual(String usuarioActual) {
-        this.usuarioActual = usuarioActual;
-    }
 
     /**
      * Metodo para obtener el usuario actual logeado del sistema
@@ -130,7 +123,37 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
         return new ArrayList<>(chatbots);
     }
     /**
-     * Metodo para añadir un nuevo chatbot al sistema, con su respectiva restriccion de ID con respecto al InitialChatbotCodeLink
+     * Metodo para modificar el usuario actual logeado del sistema
+     * @param usuarioActual
+     */
+    public void setUsuarioActual(String usuarioActual) {
+        this.usuarioActual = usuarioActual;
+    }
+
+    /**
+     * Metodo para modifica el nombre de un sistema
+     * @param NombreSistema
+     */
+    public void setNombreSistema(String NombreSistema){
+        this.nombreSistema = nombreSistema;
+    }
+
+    /**
+     * Metodo que modifica el initialchatbotcodelink del sistema
+     * @param initialChatbotCodeLink
+     */
+    public void setInitialChatbotCodeLink(int initialChatbotCodeLink){
+        this.initialChatbotCodeLink = initialChatbotCodeLink;
+    }
+    /**
+     * Metodo para modificar la lista de chatbos de un sistema
+     * @param nuevosChatbots
+     */
+    public void setChatbots(List<Chatbot_19800734_RomeroMartinez> nuevosChatbots){
+        this.chatbots = new ArrayList<>(nuevosChatbots);
+    }
+    /**
+     * Metodo para anadir un nuevo chatbot al sistema, con su respectiva restriccion de ID con respecto al InitialChatbotCodeLink
      * @param newChatbot
      */
     public void addChatbot(Chatbot_19800734_RomeroMartinez newChatbot) {
@@ -174,7 +197,7 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
         return null;
     }
     /**
-     * Método para agregar un chatbot al sistema solo si el ID coincide (complementario)
+     * Metodo para agregar un chatbot al sistema solo si el ID coincide (complementario)
      * @param chatbot
      */
     public void addChatbotIfIdMatches(Chatbot_19800734_RomeroMartinez chatbot) {
@@ -185,33 +208,5 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
             System.out.println("Error: El ID del chatbot no coincide con el ID del sistema.");
         }
     }
-    /**
-     * Método para ofrecer una síntesis del chatbot para un usuario particular
-     * @param user
-     * @param chatbot
-     */
-    public void sistema_synthesis(User_19800734_RomeroMartinez user, Chatbot_19800734_RomeroMartinez chatbot) {
-        if (user == null || chatbot == null) {
-            System.out.println("Error: Usuario o Chatbot no válido.");
-            return;
-        }
-        // Verificar que el usuario actual sea un administrador
-        if (user.getRole() != UserRole.ADMINISTRATOR) {
-            System.out.println("Error: Este método solo está disponible para usuarios administradores.");
-            return;
-        }
-        // Obtener el historial de chat del chatbot
-        List<ChatMessage> chatHistory = chatbot.getChatHistory();
-        // Imprimir la síntesis del chatbot para el usuario administrador
-        System.out.println("Síntesis del chatbot para el usuario administrador:");
-        for (ChatMessage message : chatHistory) {
-            System.out.println(message);
-        }
-    }
-    // Método para obtener el historial de chat del sistema
-    private List<ChatMessage> obtenerChatHistory() {
-        // Ejemplo:
-        List<ChatMessage> chatHistory = new ArrayList<>();
-        return chatHistory;
-    }
+
 }

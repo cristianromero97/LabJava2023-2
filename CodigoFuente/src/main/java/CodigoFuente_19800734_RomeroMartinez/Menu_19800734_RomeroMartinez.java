@@ -12,14 +12,19 @@ public class Menu_19800734_RomeroMartinez {
     private List<Chatbot_19800734_RomeroMartinez> chatbots = new ArrayList<>();
     private User_19800734_RomeroMartinez usuarioActual;
 
+    /**
+     * Constructor del menu
+     * @param sistema
+     */
     public Menu_19800734_RomeroMartinez(Sistema_19800734_RomeroMartinez sistema) {
         this.sistema = sistema;
         this.scanner = new Scanner(System.in);
         this.usuarioActual = null;
         this.chatbotsCreados = new ArrayList<>();
     }
-
-    // Método para mostrar el menú principal
+    /**
+     * Metodo para mostrar el menu principal
+     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -30,7 +35,7 @@ public class Menu_19800734_RomeroMartinez {
             System.out.print("INTRODUZCA SU OPCIÓN: ");
 
             opcion = scanner.nextInt();
-            scanner.nextLine();  // Consumir la nueva línea después de leer el número
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
@@ -48,7 +53,9 @@ public class Menu_19800734_RomeroMartinez {
         } while (opcion != 0);
     }
 
-    // Método para realizar el login de usuario
+    /**
+     * Metodo para realizar el login de usuario
+     */
     private void loginUsuario() {
         System.out.print("Ingrese su nombre de usuario: ");
         String nombreUsuario = scanner.nextLine();
@@ -64,6 +71,9 @@ public class Menu_19800734_RomeroMartinez {
         }
     }
 
+    /**
+     * Metodo que muestra el menu que viene despues del login, realiza un filtro si es normal o administrador
+     */
     private void mostrarMenuDespuesLogin() {
         String nombreUsuarioActual = sistema.getUsuarioActual();
         if (esUsuarioAdministrador(nombreUsuarioActual)) {
@@ -73,6 +83,11 @@ public class Menu_19800734_RomeroMartinez {
         }
     }
 
+    /**
+     * Metodo que identifica si es un usuario administrador segun el rol puesto en menus anteriores
+     * @param nombreUsuario
+     * @return devuelve un booleano true o false dependiendo de si es o no administrador
+     */
     private boolean esUsuarioAdministrador(String nombreUsuario) {
         List<User_19800734_RomeroMartinez> usuarios = sistema.getUsuarios();
         for (User_19800734_RomeroMartinez user : usuarios) {
@@ -83,7 +98,10 @@ public class Menu_19800734_RomeroMartinez {
         return false;
     }
 
-    // Método para mostrar el menú de Usuario Administrador
+    /**
+     * Método para mostrar el menú de Usuario Administrador
+     * @param nombreUsuarioAdmin
+     */
     private void mostrarMenuAdministrador(String nombreUsuarioAdmin) {
         List<Option_19800734_RomeroMartinez> opciones = new ArrayList<>();
         Chatbot_19800734_RomeroMartinez chatbotCreado = null;
@@ -101,14 +119,14 @@ public class Menu_19800734_RomeroMartinez {
             System.out.print("INTRODUZCA SU OPCIÓN: ");
 
             opcion = scanner.nextInt();
-            scanner.nextLine();  // Consumir la nueva línea después de leer el número
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
                     System.out.println("### Crear un nuevo Chatbot ###");
 
                     // Paso 1: Crear opciones
-                    opciones.clear();  // Limpiar la lista antes de agregar nuevas opciones
+                    opciones.clear();
                     int numOpciones = obtenerNumeroOpciones();
 
                     for (int i = 1; i <= numOpciones; i++) {
@@ -136,7 +154,6 @@ public class Menu_19800734_RomeroMartinez {
                     break;
 
                 case 2:
-                    // Lógica para modificar un chatbot
                     if (chatbotsCreados.isEmpty()) {
                         System.out.println("No hay chatbots disponibles para modificar.");
                     } else {
@@ -145,12 +162,11 @@ public class Menu_19800734_RomeroMartinez {
 
                         System.out.print("Seleccione el ID del chatbot que desea modificar: ");
                         int chatbotIdSeleccionado = scanner.nextInt();
-                        scanner.nextLine(); // Consumir la nueva línea después de leer el número
+                        scanner.nextLine();
 
                         Chatbot_19800734_RomeroMartinez chatbotAModificar = buscarChatbotPorId(chatbotIdSeleccionado, chatbotsCreados);
 
                         if (chatbotAModificar != null) {
-                            // Realizar modificaciones en el chatbot
                             modificarChatbot(chatbotAModificar);
                             System.out.println("Chatbot modificado exitosamente.");
                         } else {
@@ -159,11 +175,9 @@ public class Menu_19800734_RomeroMartinez {
                     }
                     break;
                 case 3:
-                    // Lógica para ejecutar un chatbot
                     System.out.println("Metodo no implementado.");
                     break;
                 case 4:
-                    // Lógica para visualizar todos los chatbots en el sistema
                     Sistema_19800734_RomeroMartinez nuevoSistema = crearSistema();
                     anadirChatbotsAlSistema(nuevoSistema);
                     eliminarChatbotsNoCoincidentes(nuevoSistema);
@@ -171,7 +185,6 @@ public class Menu_19800734_RomeroMartinez {
                     break;
 
                 case 5:
-                    // Opción para visualizar la información de todos los chatbots creados
                     if (!chatbotsCreados.isEmpty()) {
                         System.out.println("### Información de Chatbots Creados ###");
                         for (Chatbot_19800734_RomeroMartinez chatbot : chatbotsCreados) {
@@ -182,7 +195,6 @@ public class Menu_19800734_RomeroMartinez {
                     }
                     break;
                 case 6:
-                    // Lógica para ejecutar una simulación del sistema de chatbot
                     System.out.println("Metodo no implementado.");
                     break;
                 case 7:
@@ -199,9 +211,11 @@ public class Menu_19800734_RomeroMartinez {
         } while (true);
     }
 
-    // Método para mostrar el menú de Usuario Normal
+    /**
+     * Método para mostrar el menú de Usuario Normal
+     * @param nuevoUsuario
+     */
     private void mostrarMenuUsuarioNormal(String nuevoUsuario) {
-        // Lógica para el menú de usuario normal
         int opcion;
         do {
             System.out.println("### Sistema de Chatbots - Usuario NORMAL ###");
@@ -214,23 +228,19 @@ public class Menu_19800734_RomeroMartinez {
             System.out.println("6. Ejecutar una simulación del sistema de chatbot");
             System.out.println("7. Salir");
             System.out.print("INTRODUZCA SU OPCIÓN: ");
-
             opcion = scanner.nextInt();
-            scanner.nextLine();  // Consumir la nueva línea después de leer el número
+            scanner.nextLine();
             switch (opcion) {
                 case 1:
                     System.out.println("Usted es usuario normal no puede crear un chatbot.");
                     break;
                 case 2:
-                    // Lógica para modificar un chatbot
                     System.out.println("Usted es usuario normal no puede modificar un chatbot.");
                     break;
                 case 3:
-                    // Lógica para ejecutar un chatbot
                         System.out.println("Metodo no implementado.");
                     break;
                 case 4:
-                    // Lógica para visualizar todos los chatbots en el sistema
                     cargarSistemaPrueba();
                     cargarChatbotPrueba();
                     break;
@@ -238,7 +248,6 @@ public class Menu_19800734_RomeroMartinez {
                     cargarChatbotPrueba();
                     break;
                 case 6:
-                    // Lógica para ejecutar una simulación del sistema de chatbot
                     System.out.println("Metodo no implementado.");
                     break;
                 case 7:
@@ -254,8 +263,9 @@ public class Menu_19800734_RomeroMartinez {
             }
         } while (true);
     }
-
-    // Método para mostrar el menú de registro y manejar las opciones
+    /**
+     * Método para mostrar el menú de registro y manejar las opciones
+     */
     private void mostrarMenuRegistro() {
         int opcion;
         do {
@@ -264,9 +274,8 @@ public class Menu_19800734_RomeroMartinez {
             System.out.println("2. Registrar usuario administrador");
             System.out.println("0. Volver al menú principal");
             System.out.print("INTRODUZCA SU OPCIÓN: ");
-
             opcion = scanner.nextInt();
-            scanner.nextLine();  // Consumir la nueva línea después de leer el número
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
@@ -283,8 +292,9 @@ public class Menu_19800734_RomeroMartinez {
             }
         } while (opcion != 0);
     }
-
-    // Método para registrar un usuario normal
+    /**
+     * Método para registrar un usuario normal
+     */
     private void registrarUsuarioNormal() {
         System.out.print("INTRODUZCA NOMBRE DE USUARIO: ");
         String nuevoUsuario = scanner.nextLine();
@@ -292,8 +302,9 @@ public class Menu_19800734_RomeroMartinez {
         System.out.println("Registro exitoso. ¡Bienvenido!");
         mostrarMenuUsuarioNormal(nuevoUsuario);
     }
-
-    // Método para registrar un usuario administrador
+    /**
+     * Método para registrar un usuario administrador
+     */
     private void registrarUsuarioAdministrador() {
         System.out.println("### Sistema de Chatbots - Registro Usuario Administrador ###");
         System.out.print("INTRODUZCA NOMBRE DEL USUARIO ADMINISTRADOR: ");
@@ -303,79 +314,80 @@ public class Menu_19800734_RomeroMartinez {
         mostrarMenuAdministrador(nuevoUsuarioAdmin);
     }
 
+    /**
+     * Metodo para crear una opcion
+     * @return devuelve la opcion creada
+     */
     private Option_19800734_RomeroMartinez crearNuevaOpcion() {
         int codigo;
         String mensaje;
         int chatbotCodeLink;
         int initialFlowCodeLink;
         List<String> keywords;
-
         System.out.print("Ingrese el código de la opción: ");
         codigo = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea después de leer el número
-
+        scanner.nextLine();
         System.out.print("Ingrese el mensaje de la opción: ");
         mensaje = scanner.nextLine();
-
         System.out.print("Ingrese el código del chatbot vinculado a la opción: ");
         chatbotCodeLink = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea después de leer el número
-
+        scanner.nextLine();
         System.out.print("Ingrese el código del flujo inicial vinculado a la opción: ");
         initialFlowCodeLink = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea después de leer el número
-
+        scanner.nextLine();
         System.out.print("Ingrese las palabras clave de la opción (separadas por comas): ");
         String keywordsInput = scanner.nextLine();
         keywords = Arrays.asList(keywordsInput.split(","));
-
-        // Crear y devolver la nueva opción
         return new Option_19800734_RomeroMartinez(codigo, mensaje, chatbotCodeLink, initialFlowCodeLink, keywords);
     }
 
+    /**
+     * Metodo para crear un flujo
+     * @param opciones
+     * @return devuelve el flujo creado
+     */
     private Flow_19800734_RomeroMartinez crearNuevoFlujo(List<Option_19800734_RomeroMartinez> opciones) {
         int id;
         String mensaje;
-
         System.out.print("Ingrese el ID del flujo: ");
         id = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea después de leer el número
-
+        scanner.nextLine();
         System.out.print("Ingrese el mensaje del flujo: ");
         mensaje = scanner.nextLine();
-
-        // Crear y devolver el nuevo flujo
         Flow_19800734_RomeroMartinez nuevoFlujo = new Flow_19800734_RomeroMartinez(id, mensaje);
-        opciones.forEach(nuevoFlujo::addOption); // Agregar opciones al flujo
+        opciones.forEach(nuevoFlujo::addOption);
         return nuevoFlujo;
     }
 
+    /**
+     * Metodo para crear un chatbot
+     * @param flujoInicial
+     * @return devuelve el chatbot creado
+     */
     private Chatbot_19800734_RomeroMartinez crearNuevoChatbot(Flow_19800734_RomeroMartinez flujoInicial) {
         int chatbotId;
         String nombre;
         String mensajeBienvenida;
         int startFlowInitial;
-
         System.out.print("Ingrese el ID del chatbot: ");
         chatbotId = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea después de leer el número
-
+        scanner.nextLine();
         System.out.print("Ingrese el nombre del chatbot: ");
         nombre = scanner.nextLine();
-
         System.out.print("Ingrese el mensaje de bienvenida del chatbot: ");
         mensajeBienvenida = scanner.nextLine();
-
         System.out.print("Ingrese el código del flujo inicial del chatbot: ");
         startFlowInitial = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea después de leer el número
-
-        // Crear y devolver el nuevo chatbot
+        scanner.nextLine();
         Chatbot_19800734_RomeroMartinez nuevoChatbot = new Chatbot_19800734_RomeroMartinez(chatbotId, nombre, mensajeBienvenida, startFlowInitial);
         nuevoChatbot.addFlow(flujoInicial);
         return nuevoChatbot;
     }
 
+    /**
+     * Metodo para obtener la cantidad de opciones deseadas
+     * @return devuelve un numero, luego se puede crear opciones dependiendo de este
+     */
     private int obtenerNumeroOpciones() {
         int numOpciones;
         do {
@@ -390,24 +402,30 @@ public class Menu_19800734_RomeroMartinez {
 
         return numOpciones;
     }
+
+    /**
+     * Metodo para crear un sistema
+     * @return devuelve el sistema creado
+     */
     private Sistema_19800734_RomeroMartinez crearSistema() {
         System.out.println("### Crear un nuevo Sistema ###");
         System.out.print("Ingrese el nombre del sistema: ");
         String nombreSistema = scanner.nextLine();
-
         System.out.print("Ingrese el initialChatbotCodeLink del sistema: ");
         int initialChatbotCodeLink = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea después de leer el número
-
+        scanner.nextLine();
         return new Sistema_19800734_RomeroMartinez(nombreSistema, initialChatbotCodeLink, new ArrayList<>());
     }
+
+    /**
+     * Metodo para mostrar un sistema
+     * @param sistema
+     */
     private void mostrarSistema(Sistema_19800734_RomeroMartinez sistema) {
-        // Mostrar el sistema por pantalla
         System.out.println("### Información del Sistema ###");
         System.out.println("Nombre del Sistema: " + sistema.getNombreSistema());
         System.out.println("Fecha de Creación: " + sistema.getFechaCreacion());
         System.out.println("InitialChatbotCodeLink: " + sistema.getInitialChatbotCodeLink());
-
         List<Chatbot_19800734_RomeroMartinez> chatbots = sistema.getChatbots();
         if (!chatbots.isEmpty()) {
             System.out.println("### Chatbots en el Sistema ###");
@@ -418,6 +436,11 @@ public class Menu_19800734_RomeroMartinez {
             System.out.println("No hay chatbots en el sistema.");
         }
     }
+
+    /**
+     * Metodo para añadir chatbots al sistema, complementario a addchatbot de la clase sistema
+     * @param sistema
+     */
     private void anadirChatbotsAlSistema(Sistema_19800734_RomeroMartinez sistema) {
         for (Chatbot_19800734_RomeroMartinez chatbot : chatbotsCreados) {
             sistema.addChatbotIfIdMatches(chatbot);
@@ -425,20 +448,30 @@ public class Menu_19800734_RomeroMartinez {
         System.out.println("Chatbots añadidos al sistema.");
     }
 
+    /**
+     * Metodo para eliminar no coincidentes, complementario a removver chatbots de la clase sistema
+     * @param sistema
+     */
     private void eliminarChatbotsNoCoincidentes(Sistema_19800734_RomeroMartinez sistema) {
         List<Chatbot_19800734_RomeroMartinez> chatbots = sistema.getChatbots();
         chatbots.removeIf(chatbot -> chatbot.getChatbotId() != sistema.getInitialChatbotCodeLink());
         System.out.println("Chatbots no coincidentes eliminados del sistema.");
     }
 
+    /**
+     * Metodo que carga un sistema de prueba a la base de datos
+     */
     private void cargarSistemaPrueba(){
         Sistema_19800734_RomeroMartinez sistema = new Sistema_19800734_RomeroMartinez("Sistema de Chatbots de prueba", 101, chatbots);
-        // Accediendo a los detalles del sistema y chatbots
         System.out.println("Detalles del Sistema:");
         System.out.println("Nombre del Sistema: " + sistema.getNombreSistema());
         System.out.println("Fecha de Creación: " + sistema.getFechaCreacion());
         System.out.println("InitialChatbotCodeLink: " + sistema.getInitialChatbotCodeLink());
     }
+
+    /**
+     * Metodo que carga un chatbot de prueba a la base de datos
+     */
     private void cargarChatbotPrueba(){
         Chatbot_19800734_RomeroMartinez chatbot1 = new Chatbot_19800734_RomeroMartinez(1, "Chatbot de prueba", "¡Hola! ¿Que deseas estudiar?", 101);
         Flow_19800734_RomeroMartinez flow1 = new Flow_19800734_RomeroMartinez(101, "Flujo de estudios");
@@ -510,6 +543,10 @@ public class Menu_19800734_RomeroMartinez {
         System.out.println("---------------");
     }
 
+    /**
+     * Metodo que muestra chatbots disponibles dentro del sistema del menu
+     * @param chatbots
+     */
     private void mostrarChatbotsDisponibles(List<Chatbot_19800734_RomeroMartinez> chatbots) {
         System.out.println("### Chatbots Disponibles ###");
         for (Chatbot_19800734_RomeroMartinez chatbot : chatbots) {
@@ -517,17 +554,25 @@ public class Menu_19800734_RomeroMartinez {
         }
     }
 
-    // Método para buscar un chatbot por su ID
+    /**
+     * Metodo que busca por ID los chatbos
+     * @param id
+     * @param chatbots
+     * @return
+     */
     private Chatbot_19800734_RomeroMartinez buscarChatbotPorId(int id, List<Chatbot_19800734_RomeroMartinez> chatbots) {
         for (Chatbot_19800734_RomeroMartinez chatbot : chatbots) {
             if (chatbot.getChatbotId() == id) {
                 return chatbot;
             }
         }
-        return null; // Retorna null si no se encuentra ningún chatbot con el ID especificado
+        return null;
     }
 
-    // Método para modificar un chatbot
+    /**
+     * Metodo para modificar al chatbot desde el menu (opcion 2 administrador)
+     * @param chatbot
+     */
     private void modificarChatbot(Chatbot_19800734_RomeroMartinez chatbot) {
         System.out.println("### Modificar Chatbot ###");
         System.out.print("Nuevo nombre: ");
@@ -542,12 +587,10 @@ public class Menu_19800734_RomeroMartinez {
         System.out.print("Nuevo inicio del flujo: ");
         int nuevostartFlowInitial = scanner.nextInt();
         chatbot.setStartFlowInitial(nuevostartFlowInitial);
-        // Modificar flujos
         List<Flow_19800734_RomeroMartinez> flujos = chatbot.getFlows();
         for (Flow_19800734_RomeroMartinez flujo : flujos) {
             modificarFlujo(flujo);
         }
-        // Modificar opciones en cada flujo
         for (Flow_19800734_RomeroMartinez flow : flujos) {
             List<Option_19800734_RomeroMartinez> opciones = flow.getOptions();
             for (Option_19800734_RomeroMartinez opcion : opciones) {
@@ -556,6 +599,10 @@ public class Menu_19800734_RomeroMartinez {
         }
     }
 
+    /**
+     * Metodo para modificar el flujo del chatbot desde el menu (opcion 2 administrador)
+     * @param flow
+     */
     private void modificarFlujo(Flow_19800734_RomeroMartinez flow) {
         System.out.println("### Modificar Flujo ###");
         System.out.print("Nuevo ID del flujo: ");
@@ -567,6 +614,10 @@ public class Menu_19800734_RomeroMartinez {
         flow.setMsg(nuevoMSG);
     }
 
+    /**
+     * Metodo para modificar las opciones dentro del menu (opcion 2 administrador)
+     * @param opcion
+     */
     private void modificarOpcion(Option_19800734_RomeroMartinez opcion) {
         System.out.println("### Modificar Opción ###");
         System.out.print("Nuevo mensaje de la opcion: ");
@@ -587,9 +638,4 @@ public class Menu_19800734_RomeroMartinez {
         List<String> nuevasKeywords = Arrays.asList(nuevaKeywordInput.split(","));
         opcion.setKeywords(nuevasKeywords);
     }
-    /*public static void main(String[] args) {
-        Sistema_19800734_RomeroMartinez sistema = new Sistema_19800734_RomeroMartinez("Sistema de Chatbots", 101, Arrays.asList(new Chatbot_19800734_RomeroMartinez(101, "Chatbot1", "¡Hola! Soy un chatbot.", 101)));
-        Menu_19800734_RomeroMartinez menu = new Menu_19800734_RomeroMartinez(sistema);
-        menu.mostrarMenu();
-    }*/
 }

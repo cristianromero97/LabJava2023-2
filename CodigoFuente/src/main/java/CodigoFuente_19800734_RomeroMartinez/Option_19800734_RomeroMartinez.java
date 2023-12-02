@@ -106,7 +106,7 @@ public class Option_19800734_RomeroMartinez implements OptionInterface_19800734_
     }
 
     /**
-     * Metodo addopcion para añadir una opcion por sobre otra opcion, es decir, opciones de opciones en una lista nueva
+     * Metodo addopcion para anadir una opcion por sobre otra opcion, es decir, opciones de opciones en una lista nueva
      * @param nuevaOption
      * @param options
      * @return devuelve una lista con todas las opciones creadas
@@ -116,8 +116,6 @@ public class Option_19800734_RomeroMartinez implements OptionInterface_19800734_
         listaActualizada.add(nuevaOption);
         return listaActualizada;
     }
-    // Override equals and hashCode
-
     /**
      * Metodo de sobreescritur para opciones iguales, en caso de encontrar similitudes de opciones
      * @param o

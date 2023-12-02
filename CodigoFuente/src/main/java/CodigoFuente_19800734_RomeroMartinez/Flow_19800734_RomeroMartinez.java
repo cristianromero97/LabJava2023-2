@@ -10,38 +10,76 @@ public class Flow_19800734_RomeroMartinez implements FlowInterface_19800734_Rome
     private String msg;
     private List<Option_19800734_RomeroMartinez> options;
 
-    // Constructor
+    /**
+     * Constructor de flujos
+     * @param id
+     * @param msg
+     */
     public Flow_19800734_RomeroMartinez(int id, String msg) {
         this.id = id;
         this.msg = msg;
         this.options = new ArrayList<>();
 
     }
-    // Getter methods
+    /**
+     * Metodo que obtiene el ID de un flujo
+     * @return devuelve el id del flujo
+     */
     public int getId() {
         return id;
     }
+
+    /**
+     * Metodo que obtiene el mensaje que posee el flujo (MSG)
+     * @return devuelve el mensaje del flujo
+     */
     public String getMsg() {
         return msg;
     }
+
+    /**
+     * Metodo que obtiene las opciones alojadas dentro de un flujo
+     * @return devuelve las opciones dentro del flujo
+     */
     public List<Option_19800734_RomeroMartinez> getOptions() {
         return new ArrayList<>(options);
     }
-    // Modifier methods
+
+    /**
+     * Metodo que modifica el ID de un flujo
+     * @param newId
+     */
     public void setId(int newId) {
         this.id = newId;
     }
+
+    /**
+     * Metodo que modifica el mensaje que posee un flujo
+     * @param newMsg
+     */
     public void setMsg(String newMsg) {
         this.msg = newMsg;
     }
+
+    /**
+     * Metodo que modifica las opciones dentro de un flujo, se complementa con la clase option
+     * @param newOptions
+     */
     public void setOptions(List<Option_19800734_RomeroMartinez> newOptions) {
         this.options = new ArrayList<>(newOptions);
     }
-    // Method to add a new option to the list of options
+
+    /**
+     * Metodo para anadir una nueva opcion a un flujo (flow-add-option tipo modificador)
+     * @param newOption
+     */
     public void addOption(Option_19800734_RomeroMartinez newOption) {
         options.add(newOption);
     }
-    // Method to filter options based on initialFlowCodeLink
+
+    /**
+     * Metodo que permite filtrar flujos segun ID
+     */
     public void filterOptions() {
         List<Option_19800734_RomeroMartinez> filteredOptions = new ArrayList<>();
         int currentId = getId();
@@ -53,47 +91,30 @@ public class Flow_19800734_RomeroMartinez implements FlowInterface_19800734_Rome
         }
         setOptions(filteredOptions);
     }
-    // Method to remove duplicate options
+
+    /**
+     * Metodo que permite remover opciones duplicadas, se complementa con metodos de la clase option
+     */
     public void removeDuplicates() {
         Set<Option_19800734_RomeroMartinez> uniqueOptions = new HashSet<>(options);
         setOptions(new ArrayList<>(uniqueOptions));
     }
+
+    /**
+     * Metodo para anadir flujos dentro de otros flujos (metodo opcional)
+     * @param newFlow
+     * @param flows
+     * @return devuelve una lista de flujos actualizada
+     */
     public static List<Flow_19800734_RomeroMartinez> addFlowToFlow(Flow_19800734_RomeroMartinez newFlow, List<Flow_19800734_RomeroMartinez> flows) {
         List<Flow_19800734_RomeroMartinez> listanueva = new ArrayList<>(flows);
         listanueva.add(newFlow);
         return listanueva;
     }
-    /*public static void main(String[] args) {
-        // Example usage
-        Flow flow1 = new Flow(456, "Flujo de ejemplo");
-        Flow flow2 = new Flow(102, "Otro flujo");
-
-        Option option1 = new Option(1, "Hello", 123, 456, List.of("keyword1", "keyword2"));
-        Option option2 = new Option(2, "Hi", 789, 102, List.of("keyword3", "keyword4"));
-
-        flow1.addOption(option1);
-        flow2.addOption(option2);
-
-        List<Flow> flowList = new ArrayList<>();
-        flowList = Flow.addFlowToFlow(flow1, flowList);
-        flowList = Flow.addFlowToFlow(flow2, flowList);
-
-        // Accessing flow details
-        for (Flow flow : flowList) {
-            System.out.println("Flow ID: " + flow.getId());
-            System.out.println("Flow Message: " + flow.getMsg());
-            System.out.println("Options:");
-            for (Option option : flow.getOptions()) {
-                System.out.println("  Codigo: " + option.getCodigo());
-                System.out.println("  Mensaje: " + option.getMensaje());
-                System.out.println("  ChatbotCodeLink: " + option.getChatbotCodeLink());
-                System.out.println("  InitialFlowCodeLink: " + option.getInitialFlowCodeLink());
-                System.out.println("  Keywords: " + option.getKeywords());
-                System.out.println("  ---------------");
-            }
-        }
-    }*/
-
+    /**
+     * Metodo de representacion de un flujo en el menu
+     * @return  devuelve los atributos del flujo para ser vistos en el menu
+     */
     @Override
     public String toString() {
         return "Flow{" +
