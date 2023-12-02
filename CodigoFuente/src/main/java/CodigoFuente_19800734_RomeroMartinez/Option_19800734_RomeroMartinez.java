@@ -82,25 +82,6 @@ public class Option_19800734_RomeroMartinez implements OptionInterface_19800734_
     public int hashCode() {
         return Objects.hash(codigo, mensaje, chatbotCodeLink, initialFlowCodeLink, keywords);
     }
-    /*public static void main(String[] args) {
-        // Example usage
-        Option option1 = new Option(1, "Hello", 123, 456, List.of("keyword1", "keyword2"));
-        Option option2 = new Option(2, "Hi", 789, 101, List.of("keyword3", "keyword4"));
-
-        List<Option> optionsList = new ArrayList<>();
-        optionsList = Option.addOptionToOption(option1, optionsList);
-        optionsList = Option.addOptionToOption(option2, optionsList);
-
-        // Accessing option details
-        for (Option option : optionsList) {
-            System.out.println("Codigo: " + option.getCodigo());
-            System.out.println("Mensaje: " + option.getMensaje());
-            System.out.println("ChatbotCodeLink: " + option.getChatbotCodeLink());
-            System.out.println("InitialFlowCodeLink: " + option.getInitialFlowCodeLink());
-            System.out.println("Keywords: " + option.getKeywords());
-            System.out.println("---------------");
-        }
-    }*/
     @Override
     public String toString() {
         return "Option{" +

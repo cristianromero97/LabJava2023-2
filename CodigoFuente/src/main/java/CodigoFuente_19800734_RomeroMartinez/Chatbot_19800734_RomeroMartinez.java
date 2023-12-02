@@ -129,50 +129,7 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
 
         return sb.toString();
     }
-    /*public static void main(String[] args) {
-        // Example usage
-        Chatbot chatbot1 = new Chatbot(1, "Chatbot1", "¡Hola! Soy un chatbot.", 101);
-        Chatbot chatbot2 = new Chatbot(2, "Chatbot2", "Saludos. Soy otro chatbot.", 201);
-
-        Flow flow1 = new Flow(101, "Flujo de inicio para Chatbot1");
-        Flow flow2 = new Flow(102, "Otro flujo para Chatbot1");
-        Option option1 = new Option(1, "Opción 1", 1, 101, List.of("keyword1", "keyword2"));
-        Option option2 = new Option(2, "Opción 2", 1, 102, List.of("keyword3", "keyword4"));
-        flow1.addOption(option1);
-        flow2.addOption(option2);
-        chatbot1.addFlow(flow1);
-        chatbot1.addFlow(flow2);
-
-        Flow flow3 = new Flow(201, "Flujo de inicio para Chatbot2");
-        Option option3 = new Option(3, "Opción 3", 2, 201, List.of("keyword5", "keyword6"));
-        flow3.addOption(option3);
-        chatbot2.addFlow(flow3);
-
-        // Accessing chatbot details
-        System.out.println("Chatbot1:");
-        System.out.println("ID: " + chatbot1.getChatbotId());
-        System.out.println("Nombre: " + chatbot1.getNombre());
-        System.out.println("Mensaje de Bienvenida: " + chatbot1.getMensajeBienvenida());
-        System.out.println("StartFlowInitial: " + chatbot1.getStartFlowInitial());
-        System.out.println("Flows:");
-        for (Flow flow : chatbot1.getFlows()) {
-            System.out.println("  ID del Flujo: " + flow.getId());
-            System.out.println("  Mensaje del Flujo: " + flow.getMsg());
-            System.out.println("  Opciones:");
-            for (Option option : flow.getOptions()) {
-                System.out.println("    Codigo: " + option.getCodigo());
-                System.out.println("    Mensaje: " + option.getMensaje());
-                System.out.println("    ChatbotCodeLink: " + option.getChatbotCodeLink());
-                System.out.println("    InitialFlowCodeLink: " + option.getInitialFlowCodeLink());
-                System.out.println("    Keywords: " + option.getKeywords());
-                System.out.println("    ---------------");
-            }
-            System.out.println("  ---------------");
-        }
-        System.out.println("---------------");
-
-        // Similar details for Chatbot2
-    }*/
+    
     public int getInitialFlowId() {
         return startFlowInitial;
     }

@@ -587,9 +587,4 @@ public class Menu_19800734_RomeroMartinez {
         List<String> nuevasKeywords = Arrays.asList(nuevaKeywordInput.split(","));
         opcion.setKeywords(nuevasKeywords);
     }
-    /*public static void main(String[] args) {
-        Sistema_19800734_RomeroMartinez sistema = new Sistema_19800734_RomeroMartinez("Sistema de Chatbots", 101, Arrays.asList(new Chatbot_19800734_RomeroMartinez(101, "Chatbot1", "¡Hola! Soy un chatbot.", 101)));
-        Menu_19800734_RomeroMartinez menu = new Menu_19800734_RomeroMartinez(sistema);
-        menu.mostrarMenu();
-    }*/
 }
