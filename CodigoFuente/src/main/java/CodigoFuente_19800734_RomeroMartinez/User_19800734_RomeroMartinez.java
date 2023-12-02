@@ -83,4 +83,48 @@ public class User_19800734_RomeroMartinez implements UserInterface_19800734_Rome
         return usuarios;
     }
 
+    public static void main(String[] args) {
+        // Ejemplo de uso con usuario normal
+        List<User_19800734_RomeroMartinez> usuariosNormales = getUsuarios(List.of("Usuario1", "Usuario2"), UserRole.NORMAL);
+        System.out.println("Lista de Usuarios Normales: " + usuariosNormales);
+
+        // Intentar agregar un usuario normal con un nombre existente
+        try {
+            usuariosNormales = addUsuario("Usuario3", usuariosNormales);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Agregar un usuario normal nuevo
+        usuariosNormales = addUsuario("NuevoUsuarioNormal", usuariosNormales);
+        System.out.println("Lista Usuarios Normales actualizada: " + usuariosNormales);
+
+        // Intentar crear un usuario normal con un nombre existente
+        try {
+            User_19800734_RomeroMartinez usuarioNormal2 = new User_19800734_RomeroMartinez("Usuario4", usuariosNormales);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        List<User_19800734_RomeroMartinez> usuariosAdmin = getUsuarios(List.of("Admin1", "Admin2"), UserRole.ADMINISTRATOR);
+        System.out.println("Lista de Usuarios Administradores: " + usuariosAdmin);
+
+        // Intentar agregar un usuario administrador con un nombre existente
+        try {
+            usuariosAdmin = addUsuarioAdmin("Admin3", usuariosAdmin);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Agregar un usuario administrador nuevo
+        usuariosAdmin = addUsuarioAdmin("NuevoAdmin", usuariosAdmin);
+        System.out.println("Lista Usuarios Administradores actualizada: " + usuariosAdmin);
+
+        // Intentar crear un usuario administrador con un nombre existente
+        try {
+            User_19800734_RomeroMartinez admin2 = new User_19800734_RomeroMartinez("Admin4", usuariosAdmin);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

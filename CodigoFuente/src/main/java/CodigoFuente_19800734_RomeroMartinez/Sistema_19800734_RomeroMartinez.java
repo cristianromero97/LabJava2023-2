@@ -13,7 +13,13 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
     private int initialChatbotCodeLink;
     private List<Chatbot_19800734_RomeroMartinez> chatbots;
 
-    // Constructor
+    /**
+     *
+     * Constructor del sistema
+     * @param nombreSistema
+     * @param initialChatbotCodeLink
+     * @param chatbots
+     */
     public Sistema_19800734_RomeroMartinez(String nombreSistema, int initialChatbotCodeLink, List<Chatbot_19800734_RomeroMartinez> chatbots) {
         this.nombreSistema = nombreSistema;
         this.fechaCreacion = new Date();
@@ -21,14 +27,15 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
         this.usuarioActual = null;
         this.initialChatbotCodeLink = initialChatbotCodeLink;
         this.chatbots = new ArrayList<>(chatbots);
-
-        // Asignar el initialChatbotCodeLink al chatbotId del primer chatbot en la lista
         if (!chatbots.isEmpty()) {
             chatbots.get(0).setChatbotId(initialChatbotCodeLink);
         }
     }
-
-    // Métodos para registro, inicio de sesión y cierre de sesión de usuarios
+    /**
+     *
+     * Registra a un usuario en el sistema, si el usuario ya existe entrega un mensaje de error.
+     * @param NombreUsuario
+     */
     public void register(String NombreUsuario) {
         if (!usuarios.contains(NombreUsuario.toUpperCase())) {
             usuarios.add(NombreUsuario.toUpperCase());
@@ -37,6 +44,12 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
             System.out.println("El usuario " + NombreUsuario + " ya se encuentra registrado");
         }
     }
+    /**
+     *
+     * Registra a un usuario Administrador en el sistema, si el usuario admministrador existe entrega un mensaje de error.
+     * @param nuevoUsuarioAdmin
+     * @param role
+     */
     public void addUsuarioAdmin(String nuevoUsuarioAdmin, UserRole role) {
         if (!usuarios.contains(nuevoUsuarioAdmin.toUpperCase())) {
             usuarios.add(nuevoUsuarioAdmin.toUpperCase());
@@ -45,6 +58,10 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
             System.out.println("El usuario " + nuevoUsuarioAdmin + " ya se encuentra registrado");
         }
     }
+    /**
+     * Metodo que permite al usuario iniciar sesion, para ello se necesita estar registrado, lanzara un error en caso de que no se encuentre en el sistema.
+     * @param usuario
+     */
     public void login(String usuario) {
         if (getUsuarioActual() != null) {
             System.out.println("Ya se encuentra un usuario registrado.");
@@ -58,6 +75,9 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
 
         }
     }
+    /**
+     *  Deslogea un usuario de un sistema, si no existe ningun usuario logeado devuelve mensaje de error.
+     */
     public void logout() {
         if (getUsuarioActual() == null) {
             System.out.println("No se encuentra ningún usuario logeado.");
@@ -66,36 +86,53 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
             System.out.println("Usuario deslogeado con exito!");
         }
     }
-    // Getters y setters
+    /**
+     * Metodo selector para obtener un nombre del sistema.
+     * @return devuelve el nombre del sistema.
+     */
     public String getNombreSistema() {
         return nombreSistema;
     }
-
+    /**
+     * Metodo fecha para obtener la fecha de creacion del sistema.
+     * @return devuelve la fecha de creacion del sistema.
+     */
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
-
-    /*public List<String> getUsuarios() {
-        return usuarios;
-    }*/
-
+    /**
+     * Metodo para modificar el usuario actual logeado del sistema
+     * @param usuarioActual
+     */
     public void setUsuarioActual(String usuarioActual) {
         this.usuarioActual = usuarioActual;
     }
 
+    /**
+     * Metodo para obtener el usuario actual logeado del sistema
+     * @return devuelve el usuarioActual del sistema
+     */
     public String getUsuarioActual() {
         return usuarioActual;
     }
-
+    /**
+     * Metodo para obtener el InitialChatbotCodeLink del sistema
+     * @return devuelve el InitialChatbotCodeLink localizado por el sistema
+     */
     public int getInitialChatbotCodeLink() {
         return initialChatbotCodeLink;
     }
-
+    /**
+     * Metodo para obtener una listas de chatbots que estan dentro del sistema
+     * @return devuelve un lista de chatbots
+     */
     public List<Chatbot_19800734_RomeroMartinez> getChatbots() {
         return new ArrayList<>(chatbots);
     }
-
-    // Método para agregar un nuevo chatbot al sistema
+    /**
+     * Metodo para añadir un nuevo chatbot al sistema, con su respectiva restriccion de ID con respecto al InitialChatbotCodeLink
+     * @param newChatbot
+     */
     public void addChatbot(Chatbot_19800734_RomeroMartinez newChatbot) {
         if (newChatbot.getChatbotId() == initialChatbotCodeLink) {
             chatbots.add(newChatbot);
@@ -104,23 +141,28 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
             System.out.println("Error: El ChatbotId no coincide con el InitialChatbotCodeLink del sistema.");
         }
     }
+    /**
+     * Metodo que devuelve todos los chatbots dentro de una nueva lista
+     * @return devuelve la lista de chatbots
+     */
     public List<Chatbot_19800734_RomeroMartinez> getAllChatbots() {
         return new ArrayList<>(chatbots);
     }
-
-
-    // Método en la clase Sistema
+    /**
+     * Metodo que obtiene a los usuarios dentro del sistema, siempre y cuando esten registrados y tambien por Rol (NORMAL)
+     * @return devuelve a los usuarios en una lista
+     */
     public List<User_19800734_RomeroMartinez> getUsuarios() {
         List<User_19800734_RomeroMartinez> listaUsuarios = new ArrayList<>();
-
-        // Convertir las cadenas a objetos User y agregarlos a la lista
         for (String nombreUsuario : usuarios) {
             listaUsuarios.add(new User_19800734_RomeroMartinez(nombreUsuario, UserRole.NORMAL, listaUsuarios));
         }
-
-        // Devuelve la lista de usuarios
         return listaUsuarios;
     }
+    /**
+     * Metodo que obtiene a los usuarios dentro del sistema, siempre y cuando esten registrados y tambien por Rol (ADMINISTRADOR)
+     * @return devuelve a los usuarios en una lista
+     */
     public User_19800734_RomeroMartinez getUsuarioAdministrador() {
         String usuarioActual = getUsuarioActual();
         List<User_19800734_RomeroMartinez> usuarios = getUsuarios();
@@ -131,8 +173,10 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
         }
         return null;
     }
-
-    // Método para agregar un chatbot al sistema solo si el ID coincide
+    /**
+     * Método para agregar un chatbot al sistema solo si el ID coincide (complementario)
+     * @param chatbot
+     */
     public void addChatbotIfIdMatches(Chatbot_19800734_RomeroMartinez chatbot) {
         if (chatbot.getChatbotId() == initialChatbotCodeLink) {
             chatbots.add(chatbot);
@@ -141,36 +185,33 @@ public class Sistema_19800734_RomeroMartinez implements SistemaInterface_1980073
             System.out.println("Error: El ID del chatbot no coincide con el ID del sistema.");
         }
     }
-
-
-    // Método para ofrecer una síntesis del chatbot para un usuario particular
+    /**
+     * Método para ofrecer una síntesis del chatbot para un usuario particular
+     * @param user
+     * @param chatbot
+     */
     public void sistema_synthesis(User_19800734_RomeroMartinez user, Chatbot_19800734_RomeroMartinez chatbot) {
         if (user == null || chatbot == null) {
             System.out.println("Error: Usuario o Chatbot no válido.");
             return;
         }
-
         // Verificar que el usuario actual sea un administrador
         if (user.getRole() != UserRole.ADMINISTRATOR) {
             System.out.println("Error: Este método solo está disponible para usuarios administradores.");
             return;
         }
-
         // Obtener el historial de chat del chatbot
         List<ChatMessage> chatHistory = chatbot.getChatHistory();
-
         // Imprimir la síntesis del chatbot para el usuario administrador
         System.out.println("Síntesis del chatbot para el usuario administrador:");
         for (ChatMessage message : chatHistory) {
             System.out.println(message);
         }
     }
-
     // Método para obtener el historial de chat del sistema
     private List<ChatMessage> obtenerChatHistory() {
         // Ejemplo:
         List<ChatMessage> chatHistory = new ArrayList<>();
         return chatHistory;
     }
-
 }
