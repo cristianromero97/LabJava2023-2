@@ -24,6 +24,7 @@ public class Option_19800734_RomeroMartinez implements OptionInterface_19800734_
         this.codigo = codigo;
         this.mensaje = mensaje;
         this.chatbotCodeLink = chatbotCodeLink;
+        this.initialFlowCodeLink = initialFlowCodeLink;
         this.keywords = new ArrayList<>(keywords);
     }
     /**

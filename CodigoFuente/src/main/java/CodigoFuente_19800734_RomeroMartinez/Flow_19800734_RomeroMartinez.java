@@ -14,11 +14,12 @@ public class Flow_19800734_RomeroMartinez implements FlowInterface_19800734_Rome
      * Constructor de flujos
      * @param id
      * @param msg
+     * @param options
      */
-    public Flow_19800734_RomeroMartinez(int id, String msg) {
+    public Flow_19800734_RomeroMartinez(int id, String msg,List<Option_19800734_RomeroMartinez> options) {
         this.id = id;
         this.msg = msg;
-        this.options = new ArrayList<>();
+        this.options = new ArrayList<>(options);
 
     }
     /**
@@ -74,7 +75,13 @@ public class Flow_19800734_RomeroMartinez implements FlowInterface_19800734_Rome
      * @param newOption
      */
     public void addOption(Option_19800734_RomeroMartinez newOption) {
-        options.add(newOption);
+        if (options == null) {
+            options = new ArrayList<>();
+        }
+        boolean exists = options.stream().anyMatch(option -> option.getCodigo() == newOption.getCodigo());
+        if (!exists) {
+            options.add(newOption);
+        }
     }
 
     /**
@@ -117,10 +124,18 @@ public class Flow_19800734_RomeroMartinez implements FlowInterface_19800734_Rome
      */
     @Override
     public String toString() {
-        return "Flow{" +
-                "id=" + id +
-                ", mensaje='" + msg + '\'' +
-                ", opciones=" + options +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Flow{id=").append(id);
+        sb.append(", mensaje='").append(msg).append('\'');
+        sb.append(", opciones=[");
+
+        for (Option_19800734_RomeroMartinez option : options) {
+            sb.append("\n\t\t").append(option);
+        }
+
+        sb.append("\n\t]");
+        sb.append("\n}");
+
+        return sb.toString();
     }
 }

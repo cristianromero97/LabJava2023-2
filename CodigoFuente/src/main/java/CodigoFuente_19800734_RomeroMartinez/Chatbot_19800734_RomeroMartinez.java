@@ -18,13 +18,14 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
      * @param nombre
      * @param mensajeBienvenida
      * @param startFlowInitial
+     * @param flows
      */
-    public Chatbot_19800734_RomeroMartinez(int chatbotId, String nombre, String mensajeBienvenida, int startFlowInitial) {
+    public Chatbot_19800734_RomeroMartinez(int chatbotId, String nombre, String mensajeBienvenida, int startFlowInitial, List<Flow_19800734_RomeroMartinez> flows) {
         this.chatbotId = chatbotId;
         this.nombre = nombre;
         this.mensajeBienvenida = mensajeBienvenida;
         this.startFlowInitial = startFlowInitial;
-        this.flows = new ArrayList<>();
+        this.flows = new ArrayList<>(flows);
     }
     /**
      * Metodo que obtiene el chatbotID de un chatbot en especifico
@@ -101,7 +102,13 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
      * @param newFlow
      */
     public void addFlow(Flow_19800734_RomeroMartinez newFlow) {
-        flows.add(newFlow);
+        if (flows == null) {
+            flows = new ArrayList<>();
+        }
+        boolean exists = flows.stream().anyMatch(flow -> flow.getId() == newFlow.getId());
+        if (!exists) {
+            flows.add(newFlow);
+        }
     }
     /**
      * Metodo para remover flujos duplicados de un chatbot

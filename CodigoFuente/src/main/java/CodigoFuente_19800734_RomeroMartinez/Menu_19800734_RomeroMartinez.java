@@ -131,13 +131,13 @@ public class Menu_19800734_RomeroMartinez {
 
                     for (int i = 1; i <= numOpciones; i++) {
                         System.out.println("### Crear Opción " + i + " ###");
-                        Option_19800734_RomeroMartinez nuevaOpcion = crearNuevaOpcion();
+                        Option_19800734_RomeroMartinez nuevaOpcion = crearNuevaOpcion(opciones);
                         opciones.add(nuevaOpcion);
                     }
 
                     // Paso 2: Crear flujo
                     System.out.println("### Crear un nuevo Flujo ###");
-                    Flow_19800734_RomeroMartinez nuevoFlujo = crearNuevoFlujo(opciones);
+                    Flow_19800734_RomeroMartinez nuevoFlujo = crearNuevoFlujo(opciones, new ArrayList<>());
 
                     // Paso 3: Crear chatbot
                     System.out.println("### Crear un nuevo Chatbot ###");
@@ -248,7 +248,7 @@ public class Menu_19800734_RomeroMartinez {
                     cargarChatbotPrueba();
                     break;
                 case 6:
-                    System.out.println("Metodo no implementado.");
+                    System.out.println("Metodo no implementado");
                     break;
                 case 7:
                     sistema.logout(); // Cerrar sesión antes de salir
@@ -315,18 +315,21 @@ public class Menu_19800734_RomeroMartinez {
     }
 
     /**
-     * Metodo para crear una opcion
-     * @return devuelve la opcion creada
+     * Metodo para crear opciones en el menu
+     * @param opciones
+     * @return devuelve la opcion
      */
-    private Option_19800734_RomeroMartinez crearNuevaOpcion() {
+    private Option_19800734_RomeroMartinez crearNuevaOpcion(List<Option_19800734_RomeroMartinez> opciones) {
         int codigo;
         String mensaje;
         int chatbotCodeLink;
         int initialFlowCodeLink;
         List<String> keywords;
-        System.out.print("Ingrese el código de la opción: ");
-        codigo = scanner.nextInt();
-        scanner.nextLine();
+        do {
+            System.out.print("Ingrese el código de la opción: ");
+            codigo = scanner.nextInt();
+            scanner.nextLine();
+        } while (existeOpcionConCodigo(codigo, opciones));
         System.out.print("Ingrese el mensaje de la opción: ");
         mensaje = scanner.nextLine();
         System.out.print("Ingrese el código del chatbot vinculado a la opción: ");
@@ -338,31 +341,69 @@ public class Menu_19800734_RomeroMartinez {
         System.out.print("Ingrese las palabras clave de la opción (separadas por comas): ");
         String keywordsInput = scanner.nextLine();
         keywords = Arrays.asList(keywordsInput.split(","));
+
         return new Option_19800734_RomeroMartinez(codigo, mensaje, chatbotCodeLink, initialFlowCodeLink, keywords);
     }
 
     /**
-     * Metodo para crear un flujo
+     * Metodo de verificacion de Id para opciones
+     * @param codigo
      * @param opciones
-     * @return devuelve el flujo creado
+     * @return devuelve booleano o mensaje
      */
-    private Flow_19800734_RomeroMartinez crearNuevoFlujo(List<Option_19800734_RomeroMartinez> opciones) {
+    private boolean existeOpcionConCodigo(int codigo, List<Option_19800734_RomeroMartinez> opciones) {
+        for (Option_19800734_RomeroMartinez opcion : opciones) {
+            if (opcion.getCodigo() == codigo) {
+                System.out.println("Ya existe una opción con el mismo código. Intente nuevamente.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Metodo para crear flujos dentro del menu
+     * @param opciones
+     * @param flujos
+     * @return devuelve el flujo
+     */
+    private Flow_19800734_RomeroMartinez crearNuevoFlujo(List<Option_19800734_RomeroMartinez> opciones, List<Flow_19800734_RomeroMartinez> flujos) {
         int id;
         String mensaje;
-        System.out.print("Ingrese el ID del flujo: ");
-        id = scanner.nextInt();
-        scanner.nextLine();
+        do {
+            System.out.print("Ingrese el ID del flujo: ");
+            id = scanner.nextInt();
+            scanner.nextLine();
+        } while (existeFlujoConId(id, flujos));
+
         System.out.print("Ingrese el mensaje del flujo: ");
         mensaje = scanner.nextLine();
-        Flow_19800734_RomeroMartinez nuevoFlujo = new Flow_19800734_RomeroMartinez(id, mensaje);
+
+        Flow_19800734_RomeroMartinez nuevoFlujo = new Flow_19800734_RomeroMartinez(id, mensaje, new ArrayList<>(opciones));
         opciones.forEach(nuevoFlujo::addOption);
         return nuevoFlujo;
     }
 
     /**
-     * Metodo para crear un chatbot
+     * Metodo de verifacion de flujos con ID similar, actua como removedor, similar al metodo remove
+     * @param id
+     * @param flujos
+     * @return devuelve un boleano o un mensaje
+     */
+    private boolean existeFlujoConId(int id, List<Flow_19800734_RomeroMartinez> flujos) {
+        for (Flow_19800734_RomeroMartinez flujo : flujos) {
+            if (flujo.getId() == id) {
+                System.out.println("Ya existe un flujo con el mismo ID. Intente nuevamente.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Metodo para crear un nuevo chatbot dentro del menu
      * @param flujoInicial
-     * @return devuelve el chatbot creado
+     * @return devuelve chatbot creado
      */
     private Chatbot_19800734_RomeroMartinez crearNuevoChatbot(Flow_19800734_RomeroMartinez flujoInicial) {
         int chatbotId;
@@ -379,7 +420,7 @@ public class Menu_19800734_RomeroMartinez {
         System.out.print("Ingrese el código del flujo inicial del chatbot: ");
         startFlowInitial = scanner.nextInt();
         scanner.nextLine();
-        Chatbot_19800734_RomeroMartinez nuevoChatbot = new Chatbot_19800734_RomeroMartinez(chatbotId, nombre, mensajeBienvenida, startFlowInitial);
+        Chatbot_19800734_RomeroMartinez nuevoChatbot = new Chatbot_19800734_RomeroMartinez(chatbotId, nombre, mensajeBienvenida, startFlowInitial,new ArrayList<>(List.of(flujoInicial)));
         nuevoChatbot.addFlow(flujoInicial);
         return nuevoChatbot;
     }
@@ -473,19 +514,23 @@ public class Menu_19800734_RomeroMartinez {
      * Metodo que carga un chatbot de prueba a la base de datos
      */
     private void cargarChatbotPrueba(){
-        Chatbot_19800734_RomeroMartinez chatbot1 = new Chatbot_19800734_RomeroMartinez(1, "Chatbot de prueba", "¡Hola! ¿Que deseas estudiar?", 101);
-        Flow_19800734_RomeroMartinez flow1 = new Flow_19800734_RomeroMartinez(101, "Flujo de estudios");
-        Flow_19800734_RomeroMartinez flow2 = new Flow_19800734_RomeroMartinez(101, "Flujo de materias");
-        Option_19800734_RomeroMartinez option1 = new Option_19800734_RomeroMartinez(1, "Estudiar Ingenieria", 1, 101, List.of("Ejecucion", "Civil" , "Tecnico"));
-        Option_19800734_RomeroMartinez option2 = new Option_19800734_RomeroMartinez(2, "Programacion", 1, 101, List.of("Paradigmas", "Metodos" , "Analisis" , "Fundamentos"));
-        Option_19800734_RomeroMartinez option3 = new Option_19800734_RomeroMartinez(3,"Matematica",1,101,List.of("Calculo", "Algebra" , "Ecuaciones" , "Analisis estadistico"));
-        Option_19800734_RomeroMartinez option4 = new Option_19800734_RomeroMartinez(4,"Ciencia",1,101,List.of("Fisica", "Electro" , "Quimica"));
-        flow1.addOption(option1);
-        flow2.addOption(option2);
-        flow2.addOption(option3);
-        flow2.addOption(option4);
-        chatbot1.addFlow(flow1);
-        chatbot1.addFlow(flow2);
+        List<Option_19800734_RomeroMartinez> opcionesFlow1 = List.of(
+                new Option_19800734_RomeroMartinez(1, "Estudiar Ingenieria", 1, 101, List.of("Ejecucion", "Civil", "Tecnico")),
+                new Option_19800734_RomeroMartinez(2, "Programacion", 1, 101, List.of("Paradigmas", "Metodos", "Analisis", "Fundamentos")),
+                new Option_19800734_RomeroMartinez(3, "Matematica", 1, 101, List.of("Calculo", "Algebra", "Ecuaciones", "Analisis estadistico")),
+                new Option_19800734_RomeroMartinez(4, "Ciencia", 1, 101, List.of("Fisica", "Electro", "Quimica"))
+        );
+        Flow_19800734_RomeroMartinez flow1 = new Flow_19800734_RomeroMartinez(101, "Flujo de estudios", opcionesFlow1);
+
+        List<Option_19800734_RomeroMartinez> opcionesFlow2 = List.of(
+                new Option_19800734_RomeroMartinez(5, "Otros Estudios", 1, 101, List.of("Arte", "Historia", "Literatura")),
+                new Option_19800734_RomeroMartinez(6, "Deportes", 1, 101, List.of("Futbol", "Baloncesto", "Tenis")),
+                new Option_19800734_RomeroMartinez(7, "Salir", 1, 101, List.of("Adios", "Hasta luego"))
+        );
+        Flow_19800734_RomeroMartinez flow2 = new Flow_19800734_RomeroMartinez(101, "Flujo de otras opciones", opcionesFlow2);
+
+        Chatbot_19800734_RomeroMartinez chatbot1 = new Chatbot_19800734_RomeroMartinez(1, "Chatbot de prueba", "¡Hola! ¿Qué deseas estudiar?", 101, List.of(flow1, flow2));
+
         System.out.println("Chatbot1:");
         System.out.println("ID: " + chatbot1.getChatbotId());
         System.out.println("Nombre: " + chatbot1.getNombre());
@@ -506,20 +551,27 @@ public class Menu_19800734_RomeroMartinez {
             }
             System.out.println("  ---------------");
         }
+
         System.out.println("---------------");
-        Chatbot_19800734_RomeroMartinez chatbot2 = new Chatbot_19800734_RomeroMartinez(1, "Chatbot de prueba 2 ", "Interesante, ¿Cual son tus pasatiempos?", 102);
-        Flow_19800734_RomeroMartinez flow3 = new Flow_19800734_RomeroMartinez(102, "Flujo de pasatiempos principal");
-        Flow_19800734_RomeroMartinez flow4 = new Flow_19800734_RomeroMartinez(102, "Flujo de otros pasatiempos");
-        Option_19800734_RomeroMartinez option5 = new Option_19800734_RomeroMartinez(5, "Programar", 1, 102, List.of("Crear", "Disenar" , "Aprender"));
-        Option_19800734_RomeroMartinez option6 = new Option_19800734_RomeroMartinez(6, "Escuchar Musica", 1, 102, List.of("Rock", "Metal" , "Pop" , "Hip-hop"));
-        Option_19800734_RomeroMartinez option7 = new Option_19800734_RomeroMartinez(7,"Jugar videojuegos",1,102,List.of("Fantasia", "RPG" , "Shooter" , "Gacha"));
-        Option_19800734_RomeroMartinez option8 = new Option_19800734_RomeroMartinez(8,"Leer libros",1,102,List.of("Misterio", "Fantasia" , "Romance"));
-        flow3.addOption(option5);
-        flow4.addOption(option6);
-        flow4.addOption(option7);
-        flow4.addOption(option8);
-        chatbot2.addFlow(flow3);
-        chatbot2.addFlow(flow4);
+
+        // Chatbot 2
+        List<Option_19800734_RomeroMartinez> opcionesFlow3 = List.of(
+                new Option_19800734_RomeroMartinez(8, "Programar", 1, 102, List.of("Crear", "Disenar", "Aprender")),
+                new Option_19800734_RomeroMartinez(9, "Escuchar Musica", 1, 102, List.of("Rock", "Metal", "Pop", "Hip-hop")),
+                new Option_19800734_RomeroMartinez(10, "Jugar videojuegos", 1, 102, List.of("Fantasia", "RPG", "Shooter", "Gacha")),
+                new Option_19800734_RomeroMartinez(11, "Leer libros", 1, 102, List.of("Misterio", "Fantasia", "Romance"))
+        );
+        Flow_19800734_RomeroMartinez flow3 = new Flow_19800734_RomeroMartinez(102, "Flujo de pasatiempos principal", opcionesFlow3);
+
+        List<Option_19800734_RomeroMartinez> opcionesFlow4 = List.of(
+                new Option_19800734_RomeroMartinez(12, "Otros Pasatiempos", 1, 102, List.of("Pintar", "Bailar", "Cocinar")),
+                new Option_19800734_RomeroMartinez(13, "Viajar", 1, 102, List.of("Playas", "Montanas", "Ciudades")),
+                new Option_19800734_RomeroMartinez(14, "Salir", 1, 102, List.of("Adios", "Hasta luego"))
+        );
+        Flow_19800734_RomeroMartinez flow4 = new Flow_19800734_RomeroMartinez(102, "Flujo de otros pasatiempos", opcionesFlow4);
+
+        Chatbot_19800734_RomeroMartinez chatbot2 = new Chatbot_19800734_RomeroMartinez(2, "Chatbot de prueba 2", "Interesante, ¿Cuáles son tus pasatiempos?", 102, List.of(flow3, flow4));
+
         System.out.println("Chatbot2:");
         System.out.println("ID: " + chatbot2.getChatbotId());
         System.out.println("Nombre: " + chatbot2.getNombre());
@@ -558,7 +610,7 @@ public class Menu_19800734_RomeroMartinez {
      * Metodo que busca por ID los chatbos
      * @param id
      * @param chatbots
-     * @return
+     * @return busca chatbots por Id en caso de no encontrarlo lanzara null
      */
     private Chatbot_19800734_RomeroMartinez buscarChatbotPorId(int id, List<Chatbot_19800734_RomeroMartinez> chatbots) {
         for (Chatbot_19800734_RomeroMartinez chatbot : chatbots) {
