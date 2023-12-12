@@ -3,7 +3,6 @@ package CodigoFuente_19800734_RomeroMartinez;
 import java.util.Arrays;
 import java.lang.String;
 
-
 public class Main {
     public static void main(String[] args) {
         //Sistema por defecto (no borrar)
