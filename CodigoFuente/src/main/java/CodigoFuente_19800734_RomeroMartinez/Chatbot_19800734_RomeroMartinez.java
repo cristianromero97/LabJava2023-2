@@ -12,8 +12,10 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
     private int startFlowInitial;
     private List<Flow_19800734_RomeroMartinez> flows;
 
+
     /**
      * Constructor de chatbots
+     *
      * @param chatbotId
      * @param nombre
      * @param mensajeBienvenida
@@ -27,78 +29,100 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
         this.startFlowInitial = startFlowInitial;
         this.flows = new ArrayList<>(flows);
     }
+
     /**
      * Metodo que obtiene el chatbotID de un chatbot en especifico
+     *
      * @return devuelve el chatbotID
      */
     public int getChatbotId() {
         return chatbotId;
     }
+
     /**
      * Metodo que obtiene el nombre de un chatbot
+     *
      * @return devuelve el nombre del chatbot
      */
     public String getNombre() {
         return nombre;
     }
+
     /**
      * Metodo que obtiene el mensaje de bienvenida del chatbot
+     *
      * @return devuelve su mensaje de bienvenida
      */
     public String getMensajeBienvenida() {
         return mensajeBienvenida;
     }
+
     /**
      * Metodo que obtiene el startflowinitial del chatbot, vale decir, el flujo asociado a este mediante esta id
+     *
      * @return devuelve el startflowinitial
      */
     public int getStartFlowInitial() {
         return startFlowInitial;
     }
+
     /**
      * Metodo que obtiene los flujos de un chatbot
+     *
      * @return devuelve los flujos asociados al chatbot
      */
     public List<Flow_19800734_RomeroMartinez> getFlows() {
         return new ArrayList<>(flows);
     }
+
     /**
      * Metodo para modificar el ID de un chatbot
+     *
      * @param nuevoId
      */
     public void setChatbotId(int nuevoId) {
         this.chatbotId = nuevoId;
     }
+
     /**
      * Metodo para modificar el nombre de un chatbot
+     *
      * @param nuevoNombre
      */
     public void setNombre(String nuevoNombre) {
         this.nombre = nuevoNombre;
     }
+
     /**
      * Metodo para modificar el mensaje de bienvenida de un chatbot
+     *
      * @param nuevoMensajeBienvenida
      */
     public void setMensajeBienvenida(String nuevoMensajeBienvenida) {
         this.mensajeBienvenida = nuevoMensajeBienvenida;
     }
+
     /**
      * Metodo para modificar el startflowinital de un chatbot, vale decir , el id de otro flujo asociado a un chatbot especifico
+     *
      * @param nuevoStartFlowInitial
      */
     public void setStartFlowInitial(int nuevoStartFlowInitial) {
         this.startFlowInitial = nuevoStartFlowInitial;
     }
+
     /**
      * Metodo para modificar la lista de flujos asociados a un chatbot
+     *
      * @param nuevosFlows
      */
     public void setFlows(List<Flow_19800734_RomeroMartinez> nuevosFlows) {
         this.flows = new ArrayList<>(nuevosFlows);
     }
+
     /**
      * Metodo para anadir flujos a un chatbot
+     *
      * @param newFlow
      */
     public void addFlow(Flow_19800734_RomeroMartinez newFlow) {
@@ -110,6 +134,7 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
             flows.add(newFlow);
         }
     }
+
     /**
      * Metodo para remover flujos duplicados de un chatbot
      */
@@ -118,8 +143,10 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
         List<Flow_19800734_RomeroMartinez> uniqueFlows = new ArrayList<>(new HashSet<>(flows));
         setFlows(uniqueFlows);
     }
+
     /**
      * Metodo para filtrar flujos segun ID del chatbot (startinitialflow con chatbotID)
+     *
      * @param flowId
      */
     @Override
@@ -129,8 +156,10 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
                 .collect(Collectors.toList());
         setFlows(filteredFlows);
     }
+
     /**
      * Metodo que indica las opciones contenidas dentro del flujo, hace comparacion de ID con el flujo y chatbot
+     *
      * @param flow
      * @param initialFlowCodeLink
      * @return devuelve un booleano en caso de haber corcordancia de IDs
@@ -139,8 +168,10 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
         return flow.getOptions().stream()
                 .anyMatch(option -> option.getInitialFlowCodeLink() == initialFlowCodeLink);
     }
+
     /**
      * Metodo anexo para filtar segun starFlowInitial (similar al filtroporID)
+     *
      * @param startFlowInitial
      */
     @Override
@@ -151,8 +182,10 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
                 .collect(Collectors.toList());
         setFlows(filteredFlows);
     }
+
     /**
      * Metodo de representacion de un chatbot en la clase menu, para ser visualizado en el menu del usuario
+     *
      * @return devuelve los atributos del chatbot en el menu
      */
     @Override
@@ -173,5 +206,6 @@ public class Chatbot_19800734_RomeroMartinez implements ChatbotInterface_1980073
 
         return sb.toString();
     }
+
 }
 

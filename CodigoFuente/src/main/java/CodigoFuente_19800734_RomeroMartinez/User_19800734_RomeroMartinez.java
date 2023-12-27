@@ -15,6 +15,8 @@ public class User_19800734_RomeroMartinez implements UserInterface_19800734_Rome
     private String nombreUsuario;
     private UserRole role;
 
+    private List<String> historial;
+
     /**
      * Constructor de usuarios normales con verificacion de duplicados
      * @param nombreUsuario
@@ -26,6 +28,7 @@ public class User_19800734_RomeroMartinez implements UserInterface_19800734_Rome
         }
         this.nombreUsuario = nombreUsuario;
         this.role = UserRole.NORMAL;
+        this.historial = new ArrayList<>();
     }
 
     /**
@@ -40,6 +43,7 @@ public class User_19800734_RomeroMartinez implements UserInterface_19800734_Rome
         }
         this.nombreUsuario = nombreUsuario;
         this.role = role;
+        this.historial = new ArrayList<>();
     }
 
     /**
@@ -119,4 +123,5 @@ public class User_19800734_RomeroMartinez implements UserInterface_19800734_Rome
         usuarios.add(new User_19800734_RomeroMartinez(nuevoUsuario, UserRole.ADMINISTRATOR, usuarios));
         return usuarios;
     }
+
 }

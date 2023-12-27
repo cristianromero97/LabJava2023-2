@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class Menu_19800734_RomeroMartinez {
     private Sistema_19800734_RomeroMartinez sistema;
@@ -21,6 +22,7 @@ public class Menu_19800734_RomeroMartinez {
         this.scanner = new Scanner(System.in);
         this.usuarioActual = null;
         this.chatbotsCreados = new ArrayList<>();
+        this.chatbots = sistema.getChatbots();
     }
     /**
      * Metodo para mostrar el menu principal
@@ -115,7 +117,8 @@ public class Menu_19800734_RomeroMartinez {
             System.out.println("4. Visualizar todos los chatbots existentes en el sistema");
             System.out.println("5. Visualizar todos los chatbots con sus flujos y opciones creadas");
             System.out.println("6. Ejecutar una simulación del sistema de chatbot");
-            System.out.println("7. Salir");
+            System.out.println("7. Historial basico");
+            System.out.println("8. Cerrar Sesion"); //Si bien antes decia salir, es para que no surgan mas complicaciones
             System.out.print("INTRODUZCA SU OPCIÓN: ");
 
             opcion = scanner.nextInt();
@@ -175,8 +178,15 @@ public class Menu_19800734_RomeroMartinez {
                     }
                     break;
                 case 3:
-                    System.out.println("Metodo no implementado.");
+                    System.out.print("Hola, Espero que este bien vamos a hablar un poco");
+                    System.out.print("Deberas indicarme alguna palabra claves y te dire si la encuentro - favor solo clave no keyword asi facilita la busqueda");
+                    System.out.print("Ingresa una palabra clave para que la busque: ");
+                    String keyword = scanner.nextLine();
+                    for (Chatbot_19800734_RomeroMartinez chatbot : chatbotsCreados) {
+                        sistema.talkRecAdministrador(chatbot, keyword);
+                    }
                     break;
+
                 case 4:
                     Sistema_19800734_RomeroMartinez nuevoSistema = crearSistema();
                     anadirChatbotsAlSistema(nuevoSistema);
@@ -198,6 +208,15 @@ public class Menu_19800734_RomeroMartinez {
                     System.out.println("Metodo no implementado.");
                     break;
                 case 7:
+                    //Esta opcion es nueva no estaba antes del comodin
+                    System.out.print("->ATENCION: En caso de no aparecer el historial, primero debe interactuar): ");
+                    System.out.print("¿Usted es un usuario ___? (favor en minusculas - favor de colocar administrador): ");
+                    String nombreUsuarioSintesis = scanner.nextLine();
+                    sistema.synthesis(nombreUsuarioSintesis);
+                    System.out.println("---------------------------------------------------");
+                    System.out.println("REGISTRO FINALIZADO");
+                    break;
+                case 8:
                     sistema.logout(); // Cerrar sesión antes de salir
                     System.out.println("Saliendo del menu de Usuario Administrador.");
                     System.out.println("Limpiando datos del sistema.");
@@ -226,7 +245,8 @@ public class Menu_19800734_RomeroMartinez {
             System.out.println("4. Visualizar todos los chatbots existentes en el sistema");
             System.out.println("5. Visualizar todos los chatbots con sus flujos y opciones creadas");
             System.out.println("6. Ejecutar una simulación del sistema de chatbot");
-            System.out.println("7. Salir");
+            System.out.println("7. Historial basico");
+            System.out.println("8. Cerrar Sesion"); //Si bien antes decia salir es para que no surgan mas complicaciones
             System.out.print("INTRODUZCA SU OPCIÓN: ");
             opcion = scanner.nextInt();
             scanner.nextLine();
@@ -238,7 +258,11 @@ public class Menu_19800734_RomeroMartinez {
                     System.out.println("Usted es usuario normal no puede modificar un chatbot.");
                     break;
                 case 3:
-                        System.out.println("Metodo no implementado.");
+                    System.out.println("Saludos Usuario, Espero que estes bien, ¡Vamos a hablar un poco!");
+                    System.out.println("Deberas indicarme alguna palabra clave y te dire si la encuentro - favor solo clave no keyword asi facilita la busqueda...");
+                    System.out.println("Para ello me centrare en la base de datos preconstruida previamente....");
+                    System.out.println("------------------------------------------------------------");
+                    interaccionChatbotPruebaBusqueda();
                     break;
                 case 4:
                     cargarSistemaPrueba();
@@ -251,6 +275,15 @@ public class Menu_19800734_RomeroMartinez {
                     System.out.println("Metodo no implementado");
                     break;
                 case 7:
+                    //Esta opcion es nueva no estaba antes del comodin
+                    System.out.print("->ATENCION: En caso de no aparecer el historial, primero debe interactuar): ");
+                    System.out.print("¿Usted es un usuario ___? (favor en minusculas - favor de colocar normal): ");
+                    String nombreUsuarioSintesis = scanner.nextLine();
+                    sistema.synthesis(nombreUsuarioSintesis);
+                    System.out.println("---------------------------------------------------");
+                    System.out.println("REGISTRO FINALIZADO");
+                    break;
+                case 8:
                     sistema.logout(); // Cerrar sesión antes de salir
                     System.out.println("Saliendo del menu de Usuario Normal.");
                     System.out.println("Limpiando datos del sistema.");
@@ -525,7 +558,7 @@ public class Menu_19800734_RomeroMartinez {
         List<Option_19800734_RomeroMartinez> opcionesFlow2 = List.of(
                 new Option_19800734_RomeroMartinez(5, "Otros Estudios", 1, 101, List.of("Arte", "Historia", "Literatura")),
                 new Option_19800734_RomeroMartinez(6, "Deportes", 1, 101, List.of("Futbol", "Baloncesto", "Tenis")),
-                new Option_19800734_RomeroMartinez(7, "Salir", 1, 101, List.of("Adios", "Hasta luego"))
+                new Option_19800734_RomeroMartinez(7, "salir", 1, 101, List.of("Adios", "Hasta luego"))
         );
         Flow_19800734_RomeroMartinez flow2 = new Flow_19800734_RomeroMartinez(101, "Flujo de otras opciones", opcionesFlow2);
 
@@ -594,6 +627,53 @@ public class Menu_19800734_RomeroMartinez {
         }
         System.out.println("---------------");
     }
+
+    /**
+     *  Metodo de interaccion con el chatbotPrueba, este utiliza talkrecnormal paraa funcionar y recorre las opcione, keywords de los chatbots
+     */
+    private void interaccionChatbotPruebaBusqueda(){
+        List<Option_19800734_RomeroMartinez> opcionesFlow1 = List.of(
+                new Option_19800734_RomeroMartinez(1, "Estudiar Ingenieria", 1, 101, List.of("Ejecucion", "Civil", "Tecnico")),
+                new Option_19800734_RomeroMartinez(2, "Programacion", 1, 101, List.of("Paradigmas", "Metodos", "Analisis", "Fundamentos")),
+                new Option_19800734_RomeroMartinez(3, "Matematica", 1, 101, List.of("Calculo", "Algebra", "Ecuaciones", "Analisis estadistico")),
+                new Option_19800734_RomeroMartinez(4, "Ciencia", 1, 101, List.of("Fisica", "Electro", "Quimica"))
+        );
+        Flow_19800734_RomeroMartinez flow1 = new Flow_19800734_RomeroMartinez(101, "Flujo de estudios", opcionesFlow1);
+
+        List<Option_19800734_RomeroMartinez> opcionesFlow2 = List.of(
+                new Option_19800734_RomeroMartinez(5, "Otros Estudios", 1, 101, List.of("Arte", "Historia", "Literatura")),
+                new Option_19800734_RomeroMartinez(6, "Deportes", 1, 101, List.of("Futbol", "Baloncesto", "Tenis")),
+                new Option_19800734_RomeroMartinez(7, "salir", 1, 101, List.of("Adios", "Hasta luego"))
+        );
+        Flow_19800734_RomeroMartinez flow2 = new Flow_19800734_RomeroMartinez(101, "Flujo de otras opciones", opcionesFlow2);
+
+        Chatbot_19800734_RomeroMartinez chatbot1 = new Chatbot_19800734_RomeroMartinez(1, "Chatbot de prueba", "¡Hola! ¿Qué deseas estudiar?", 101, List.of(flow1, flow2));
+
+        // Chatbot 2
+        List<Option_19800734_RomeroMartinez> opcionesFlow3 = List.of(
+                new Option_19800734_RomeroMartinez(8, "Programar", 1, 102, List.of("Crear", "Disenar", "Aprender")),
+                new Option_19800734_RomeroMartinez(9, "Escuchar Musica", 1, 102, List.of("Rock", "Metal", "Pop", "Hip-hop")),
+                new Option_19800734_RomeroMartinez(10, "Jugar videojuegos", 1, 102, List.of("Fantasia", "RPG", "Shooter", "Gacha")),
+                new Option_19800734_RomeroMartinez(11, "Leer libros", 1, 102, List.of("Misterio", "Fantasia", "Romance"))
+        );
+        Flow_19800734_RomeroMartinez flow3 = new Flow_19800734_RomeroMartinez(102, "Flujo de pasatiempos principal", opcionesFlow3);
+
+        List<Option_19800734_RomeroMartinez> opcionesFlow4 = List.of(
+                new Option_19800734_RomeroMartinez(12, "Otros Pasatiempos", 1, 102, List.of("Pintar", "Bailar", "Cocinar")),
+                new Option_19800734_RomeroMartinez(13, "Viajar", 1, 102, List.of("Playas", "Montanas", "Ciudades")),
+                new Option_19800734_RomeroMartinez(14, "Salir", 1, 102, List.of("Adios", "Hasta luego"))
+        );
+        Flow_19800734_RomeroMartinez flow4 = new Flow_19800734_RomeroMartinez(102, "Flujo de otros pasatiempos", opcionesFlow4);
+
+        Chatbot_19800734_RomeroMartinez chatbot2 = new Chatbot_19800734_RomeroMartinez(2, "Chatbot de prueba 2", "Interesante, ¿Cuáles son tus pasatiempos?", 102, List.of(flow3, flow4));
+        List<Chatbot_19800734_RomeroMartinez> chatbots = new ArrayList<>();
+        chatbots.add(chatbot1);
+        chatbots.add(chatbot2);
+        System.out.print("Ingrese un mensaje para buscar una opcion: ");
+        String mensajeBusqueda = scanner.nextLine();
+        sistema.talkRecNormal(mensajeBusqueda,chatbots);
+    }
+
 
     /**
      * Metodo que muestra chatbots disponibles dentro del sistema del menu

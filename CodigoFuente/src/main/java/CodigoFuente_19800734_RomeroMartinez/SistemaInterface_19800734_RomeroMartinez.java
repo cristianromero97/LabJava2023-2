@@ -150,4 +150,43 @@ public interface SistemaInterface_19800734_RomeroMartinez {
         usuarios.add(new User_19800734_RomeroMartinez(nuevoUsuario, UserRole.ADMINISTRATOR, usuarios));
         return usuarios;
     }
+    /**
+     * Metodo de interface para obtener el historial global del sistema
+     * @return devuelve el historial global
+     */
+    List<Historial_19800734_RomeroMartinez> getHistorialGlobal();
+
+    /**
+     * Metodo de interface para agregar una interacción al historial global
+     * @param interaccion
+     */
+    void agregarAlHistorial(Historial_19800734_RomeroMartinez interaccion);
+
+    /**
+     * Metodo principal de la interface para obtener el historial de un usuario
+     * @param nombreUsuario
+     * @return devuelve el historial del usuario
+     */
+    List<String> obtenerHistorialUsuario(String nombreUsuario);
+
+    /**
+     * Metodo de interface para realizar una síntesis del historial de un usuario
+     * @param nombreUsuario
+     */
+    void synthesis(String nombreUsuario);
+
+    /**
+     * Metodo de interaccion system talkrec para usuario Administrador, recibe un chatbot y un string y busca coincidencia para interactuar
+     * @param chatbot
+     * @param keyword
+     */
+    void talkRecAdministrador(Chatbot_19800734_RomeroMartinez chatbot, String keyword);
+
+    /**
+     * Metodo de interaccion system talkrec para usuario Normal, recibe un chatbot y un string y busca coincidencia para interactuar
+     * @param mensaje
+     * @param chatbots
+     */
+    void talkRecNormal(String mensaje, List<Chatbot_19800734_RomeroMartinez> chatbots);
+
 }
